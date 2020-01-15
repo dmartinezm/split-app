@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import "semantic-ui-css/semantic.min.css";
-import "./Styles/index.css";
+// import "semantic-ui-less/semantic.less";
+// import "./Styles/index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 // import store from "./redux/store";
-import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 // import { combineReducers, createStore, applyMiddleware } from "redux";
 import store from "./redux/store/store";

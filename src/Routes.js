@@ -10,6 +10,7 @@ const Routes = () => {
         <Route path="/login" component={Component.Login} />
         <Route path="/signup" component={Component.Signup} />
         <Route path="/dashboard" component={Component.Dashboard} />
+        <Route path="/group-details/:id" component={Component.GroupDetails} />
       </Switch>
     </div>
   );
