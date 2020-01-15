@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./Styles/App.css";
+import Routes from "./Routes";
+import Nav from "./components/NavBar";
+import { BrowserRouter as Router } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import userActions from "./redux/actions/userActions";
+import groupActions from "./redux/actions/groupActions";
+import Theme from "./components/theme";
 
-function App() {
+const App = () => {
+  // const username = useSelector(state => state.userObj.username)
+  // console.log("token?", localStorage.token);
+  const state = useSelector(state => {
+    return {
+      user: state.currentUser
+    };
+  });
+
+  const dispatch = useDispatch();
+  // console.log(state);
+  useEffect(() => {
+    // dispatch(groupActions.getGroupsFromAPI());
+    if (localStorage.token) {
+      // dispatch(userActions.persistUserFromAPI());
+    }
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Theme>
+        {/* <Nav /> */}
+        <Routes />
+      </Theme>
+    </Router>
   );
-}
+};
 
 export default App;
