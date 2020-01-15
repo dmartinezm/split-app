@@ -14,6 +14,7 @@ const getGroupsFromAPI = (userId = 1) => dispatch => {
   fetch(API + `users/${userId}`)
     .then(r => r.json())
     .then(data => {
+      //   debugger;
       dispatch(setGroupsAction(data.groups));
     });
 };
@@ -21,7 +22,10 @@ const getGroupsFromAPI = (userId = 1) => dispatch => {
 const getGroupDetails = (groupId = 1) => dispatch => {
   fetch(API + `groups/${groupId}`)
     .then(r => r.json())
-    .then(data => console.log(data.id) || dispatch(setGroupDetails(data)));
+    .then(data => {
+      //   debugger;
+      dispatch(setGroupDetails(data));
+    });
 };
 
 export default {

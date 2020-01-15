@@ -1,39 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import groupActions from "../redux/actions/groupActions";
 // import AccountsAdapter from "../Adapters/AccountsAdapter";
-import {
-  Icon,
-  Input,
-  Container,
-  Grid,
-  Header,
-  Segment,
-  Modal,
-  Form,
-  Button
-} from "semantic-ui-react";
+import { Icon, Segment } from "semantic-ui-react";
 
 const GroupDetails = () => {
   // const [group, setGroup] = useState({});
-  const [expenses, setExpenses] = useState([]);
-  const [groupEdit, setGroupEdit] = useState(false);
+  // const [expenses, setExpenses] = useState([]);
+  // const [groupEdit, setGroupEdit] = useState(false);
 
   const dispatch = useDispatch();
-  const group = useSelector(state => state);
+  const groups = useSelector(state => state.groups);
 
-  useEffect(() => {
-    dispatch(groupActions.getGroupDetails());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(groupActions.getGroupDetails(2));
+  // }, []);
 
-  console.log(group);
+  console.log(groups);
+
+  // console.log(group[0].expenses);
+  const check = () => {
+    // console.log(group.expenses);
+    if (groups) {
+      console.log(groups[0].expenses);
+    }
+  };
 
   return (
     <div>
       <h1>Group Details</h1>
+
+      {check()}
+      {/* 
+      {group.expenses.map(expense => (
+        <Segment id={expense.id}>{expense.name}</Segment>
+      ))} */}
+      {/* <h2>{group.name}</h2> */}
+      {/* {renderExpenses().map(expense => (
+        <li>{expense.name}</li>
+      ))} */}
+      {/* <h3>{group.expenses["name"]}</h3> */}
     </div>
   );
 };
+
 // class GroupDetails extends Component {
 //   // state = {
 //   //   group: {},

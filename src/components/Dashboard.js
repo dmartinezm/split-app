@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 import {
   Button,
-  Icon,
   Container,
   Grid,
   Header,
@@ -18,6 +17,7 @@ const Dashboard = () => {
   const [modalState, setModalState] = useState(false);
 
   const groups = useSelector(state => state.groups);
+  const state = useSelector(state => state);
 
   const dispatch = useDispatch();
 
@@ -41,6 +41,7 @@ const Dashboard = () => {
   // const groupList = () => {
   //   return groups.map(group => <li>{group.name}</li>);
   // };
+  console.log(groups);
 
   const renderGroups = () =>
     groups.map(group => {
