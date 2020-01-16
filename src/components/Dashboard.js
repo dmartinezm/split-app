@@ -69,7 +69,7 @@ const Dashboard = () => {
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(groupActions.addGroupToAPI(groupName));
-    // this.props.history.push("/group-details/");
+    setGroupName({ groupName: "" });
     close();
   };
 

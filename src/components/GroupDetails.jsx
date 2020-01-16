@@ -28,8 +28,8 @@ const GroupDetails = props => {
         {handleGroupEditRender(groupEdit)}
         {selectedGroup.expenses.map(expense => {
           return (
-            <Segment id={expense.id}>
-              <li key={expense.id}>
+            <Segment key={expense.id}>
+              <li>
                 {expense.name} {expense.description} ${expense.amount}
                 <Icon
                   style={{ marginLeft: "1em" }}

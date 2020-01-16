@@ -6,11 +6,11 @@ const setFriends = friends => ({
 });
 
 const getFriendsFromAPI = (userId = 1) => dispatch => {
-  fetch(API + `frienships/${userId}`)
+  fetch(API + `friendships/${userId}`)
     .then(r => r.json())
     .then(data => {
-      debugger;
-      dispatch(setGroupsAction(data.groups));
+      // debugger;
+      dispatch(setFriends(data.user.friends));
     });
 };
 
@@ -23,12 +23,12 @@ const addFriendToAPI = (userId = 1, friendId = 2) => dispatch => {
   fetch(API + "newfriend/", {
     method: "POST",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ user_id: 1, name: group_name })
+    body: JSON.stringify({ user_id: 1, name: "" })
   })
     .then(r => r.json())
     .then(data => {
       //   debugger;
-      dispatch(addGroup(data));
+      dispatch(addFriend(data));
     })
     .catch(console.error);
 };
