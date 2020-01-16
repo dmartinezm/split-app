@@ -15,7 +15,10 @@ import {
 
 const Dashboard = () => {
   const [modalState, setModalState] = useState(false);
-
+  const [newGroup, setGroupName] = useState({
+    groupName: ""
+  });
+  const { groupName } = newGroup;
   const groups = useSelector(state => state.groups);
   const state = useSelector(state => state);
 
@@ -26,22 +29,25 @@ const Dashboard = () => {
   }, []);
 
   const show = () => {
-    setModalState({
-      modalState: true
-    });
+    setModalState(true);
   };
 
   const close = () => {
-    setModalState({ modalState: false });
+    setModalState(false);
   };
 
   const handleGroupClick = () => {
     console.log("hi");
   };
+
+  const handleForm = event => {
+    console.log(event.target.value);
+    setGroupName({ ...newGroup, [event.target.name]: event.target.value });
+  };
+
   // const groupList = () => {
   //   return groups.map(group => <li>{group.name}</li>);
   // };
-  console.log(groups);
 
   const renderGroups = () =>
     groups.map(group => {
@@ -63,6 +69,7 @@ const Dashboard = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    dispatch(groupActions.addGroupToAPI(groupName));
     close();
   };
 
@@ -73,17 +80,15 @@ const Dashboard = () => {
           <label>Group Name</label>
           <input
             placeholder="Group Name"
-            name="group_name"
-            value={this.state.group_name}
-            onChange={this.handleForm}
+            name="groupName"
+            value={groupName}
+            onChange={handleForm}
           />
         </Form.Field>
         <Button type="submit">Submit</Button>
       </Form>
     );
   };
-
-  console.log(groups);
 
   return (
     <div>
@@ -114,14 +119,14 @@ const Dashboard = () => {
 
       <Modal
         open={modalState}
-        onClose={() => setModalState(false)}
+        onClose={close}
         size="mini"
         closeIcon
         // trigger={<Button icon="plus" size="mini" positive></Button>}
       >
         <Modal.Header>Add New Group</Modal.Header>
         <Modal.Content>
-          <Modal.Description>{newGroupForm}</Modal.Description>
+          <Modal.Description>{newGroupForm()}</Modal.Description>
         </Modal.Content>
       </Modal>
     </div>

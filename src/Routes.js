@@ -10,7 +10,17 @@ const Routes = () => {
         <Route path="/login" component={Component.Login} />
         <Route path="/signup" component={Component.Signup} />
         <Route path="/dashboard" component={Component.Dashboard} />
-        <Route path="/group-details/:id" component={Component.GroupDetails} />
+        <Route
+          exact
+          path="/group-details/:id"
+          render={props => {
+            let groupId = props.location.pathname.replace(
+              "/group-details/",
+              ""
+            );
+            return <Component.GroupDetails group={groupId} />;
+          }}
+        />
       </Switch>
     </div>
   );

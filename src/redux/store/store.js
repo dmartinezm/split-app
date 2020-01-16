@@ -1,4 +1,4 @@
-import { combineReducers, createStore, applyMiddleware } from "redux";
+import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 // import rootReducer from "../reducers/rootReducer";
 import thunk from "redux-thunk";
 import currentUser from "../reducers/userReducer";
@@ -11,6 +11,12 @@ const rootReducer = combineReducers({
   groups: userGroups
 });
 // reducers produce the state of your application.
-const store = createStore(rootReducer, applyMiddleware(thunk));
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 export default store;

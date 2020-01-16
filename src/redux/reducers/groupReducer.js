@@ -11,8 +11,9 @@ export default (state = [], { type, payload }) => {
     //     //   groups: [...state.groups].concat(payload)
     //     groups: payload
     //   };
-    case "GROUP_DETAILS":
-      return payload;
+    case "ADD_GROUP":
+      return [...state, payload];
+
     //   return {
     //     ...state,
     //     //   groups: [...state.groups].concat(payload)
