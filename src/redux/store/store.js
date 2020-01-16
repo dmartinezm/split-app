@@ -3,12 +3,13 @@ import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import currentUser from "../reducers/userReducer";
 import userGroups from "../reducers/groupReducer";
-
+import friends from "../reducers/friendReducer";
 // You may also pass an initial state to createStore, useful for server side rendering and state preloading
 
 const rootReducer = combineReducers({
   currentUser: currentUser,
-  groups: userGroups
+  groups: userGroups,
+  friends: friends
 });
 // reducers produce the state of your application.
 

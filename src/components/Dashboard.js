@@ -53,6 +53,7 @@ const Dashboard = () => {
     groups.map(group => {
       return (
         <Grid.Column key={group.id} onClick={handleGroupClick}>
+          <div className="0000">.</div>
           <Link to={`/group-details/${group.id}`}>
             <Segment>{group.name}</Segment>
           </Link>

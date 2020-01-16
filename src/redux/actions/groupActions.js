@@ -1,3 +1,5 @@
+const API = "http://localhost:3000/";
+
 const setGroupsAction = groups => ({
   type: "GET_GROUPS",
   payload: groups
@@ -12,8 +14,6 @@ const addGroup = newGroup => ({
   type: "ADD_GROUP",
   payload: newGroup
 });
-
-const API = "http://localhost:3000/";
 
 const getGroupsFromAPI = (userId = 1) => dispatch => {
   fetch(API + `users/${userId}`)
