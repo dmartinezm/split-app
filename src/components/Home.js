@@ -2,12 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Home = () => {
-  const username = useSelector(state => state.currentUser.first_name);
+  const currentUser = useSelector(state => state.currentUser);
   const state = useSelector(state => state);
   console.log("state", state);
 
-  const text = username ? (
-    <h1>{username} is currently logged in</h1>
+  const text = currentUser ? (
+    <h1>{currentUser.first_name} is currently logged in</h1>
   ) : (
     <h1>Nobody is logged in</h1>
   );

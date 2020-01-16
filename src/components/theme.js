@@ -6,28 +6,34 @@ const FixedMenuLayout = props => (
   <div>
     <Menu fixed="top" inverted>
       <Container>
-        <Link to="/">
-          <Menu.Item>
-            {/* <Image
+        <Menu.Item as={Link} to="/">
+          {/* <Image
               size="mini"
               src={require("../Styles/money-bag.jpg")}
               style={{ marginRight: "1.0em" }}
             /> */}
-            Split App
-          </Menu.Item>
-        </Link>
-        <Link to="/dashboard">
-          <Menu.Item>Dashboard</Menu.Item>
-        </Link>
-        <Link to="/login">
-          <Menu.Item postion="right">Login</Menu.Item>
-        </Link>
-        <Link to="/logout">
-          <Menu.Item postion="right">Logout</Menu.Item>
-        </Link>
-        <Link to="/signup">
-          <Menu.Item postion="right">Signup</Menu.Item>
-        </Link>
+          Split App
+        </Menu.Item>
+
+        <Menu.Item as={Link} to="/dashboard">
+          Dashboard
+        </Menu.Item>
+
+        <Menu.Item as={Link} to="/login" postion="right">
+          Login
+        </Menu.Item>
+
+        <Menu.Item as={Link} to="/logout" postion="right">
+          Logout
+        </Menu.Item>
+
+        <Menu.Item as={Link} to="/signup" postion="right">
+          Signup
+        </Menu.Item>
+
+        <Menu.Item as={Link} to="/friends" postion="right">
+          Friends
+        </Menu.Item>
       </Container>
     </Menu>
 

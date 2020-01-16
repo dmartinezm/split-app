@@ -4,7 +4,7 @@ import Component from "./components";
 import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
 import Done from "./components/Auth/Done";
-import Dashboard from "./components/Dashboard/Dashboard";
+import Dashboard from "./components/Dashboard";
 
 const Routes = () => {
   return (
@@ -13,7 +13,7 @@ const Routes = () => {
         {/* <Route exact path="/" component={Component.Home} /> */}
         {/* <Route path="/login" component={Component.Login} /> */}
         {/* <Route path="/signup" component={Component.Signup} /> */}
-        {/* <Route path="/dashboard" component={Component.Dashboard} /> */}
+        <Route path="/dashboard" component={Component.Dashboard} />
         <Route
           exact
           path="/group-details/:id"
@@ -30,7 +30,7 @@ const Routes = () => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/done" component={Done} />
-        <Route exact path="/dashboard" component={Dashboard} />
+        {/* <Route exact path="/dashboard" component={Dashboard} /> */}
       </Switch>
     </div>
   );

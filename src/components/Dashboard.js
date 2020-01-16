@@ -19,8 +19,7 @@ const Dashboard = () => {
     groupName: ""
   });
   const { groupName } = newGroup;
-  const groups = useSelector(state => state.groups);
-  const state = useSelector(state => state);
+  const groups = useSelector(state => state.myGroups);
 
   const dispatch = useDispatch();
 
@@ -53,7 +52,6 @@ const Dashboard = () => {
     groups.map(group => {
       return (
         <Grid.Column key={group.id} onClick={handleGroupClick}>
-          <div className="0000">.</div>
           <Link to={`/group-details/${group.id}`}>
             <Segment>{group.name}</Segment>
           </Link>
@@ -71,6 +69,7 @@ const Dashboard = () => {
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(groupActions.addGroupToAPI(groupName));
+    // this.props.history.push("/group-details/");
     close();
   };
 

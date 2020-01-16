@@ -8,8 +8,8 @@ import friends from "../reducers/friendReducer";
 
 const rootReducer = combineReducers({
   currentUser: currentUser,
-  groups: userGroups,
-  friends: friends
+  myGroups: userGroups,
+  myFriends: friends
 });
 // reducers produce the state of your application.
 

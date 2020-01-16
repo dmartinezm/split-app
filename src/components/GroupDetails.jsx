@@ -13,7 +13,7 @@ import {
 
 const GroupDetails = props => {
   const dispatch = useDispatch();
-  const groups = useSelector(state => state.groups);
+  const groups = useSelector(state => state.myGroups);
 
   const [groupId, setGroupId] = useState(parseInt(props.group));
   const [groupEdit, setGroupEdit] = useState(false);
