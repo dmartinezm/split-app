@@ -4,8 +4,8 @@ import Routes from "./Routes";
 // import Nav from "./components/NavBar";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import userActions from "./redux/actions/userActions";
-// import groupActions from "./redux/actions/groupActions";
+import userActions from "./redux/actions/userActions";
+import groupActions from "./redux/actions/groupActions";
 import Theme from "./components/theme";
 
 const App = () => {
@@ -18,18 +18,19 @@ const App = () => {
   // });
 
   const dispatch = useDispatch();
-  // console.log(state);
+  const user = useSelector(state => state.currentUser);
+
   useEffect(() => {
     // dispatch(groupActions.getGroupsFromAPI());
     if (localStorage.token) {
-      // dispatch(userActions.persistUserFromAPI());
+      dispatch(userActions.persistUserFromAPI());
+      // dispatch(groupActions.getGroupsFromAPI(user.id));
     }
-  });
+  }, []);
 
   return (
     <Router>
       <Theme>
-        {/* <Nav /> */}
         <Routes />
       </Theme>
     </Router>

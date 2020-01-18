@@ -1,10 +1,11 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Component from "./components";
-import Login from "./components/Auth/Login";
+import Login from "./components/Login";
 import Signup from "./components/Auth/Signup";
 import Done from "./components/Auth/Done";
 import Dashboard from "./components/Dashboard";
+import Home from "./components/Home";
 
 const Routes = () => {
   return (

@@ -5,12 +5,18 @@ const setFriends = friends => ({
   payload: friends
 });
 
+const setFriendGroups = groups => ({
+  type: "GET_FRIEND_GROUPS",
+  payload: groups
+});
+
 const getFriendsFromAPI = (userId = 1) => dispatch => {
-  fetch(API + `friendships/${userId}`)
+  fetch(API + `users/${userId}`)
     .then(r => r.json())
     .then(data => {
-      // debugger;
-      dispatch(setFriends(data.user.friends));
+      debugger;
+      dispatch(setFriends(data.friends));
+      dispatch(setFriendGroups(data.group_with));
     });
 };
 

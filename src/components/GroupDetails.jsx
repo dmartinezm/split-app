@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import groupActions from "../redux/actions/groupActions";
+import groupDetailActions from "../redux/actions/groupDetailActions";
 // import AccountsAdapter from "../Adapters/AccountsAdapter";
+
 import {
   Icon,
   Segment,
@@ -13,35 +14,45 @@ import {
 
 const GroupDetails = props => {
   const dispatch = useDispatch();
-  const groups = useSelector(state => state.myGroups);
+  const groupId = props.group;
+  // const [groupId, setGroupId] = useState(parseInt(props.group));
+  useEffect(() => {
+    dispatch(groupDetailActions.getGroupDetailsFromAPI(groupId));
+  }, []);
+  const selectedGroup = useSelector(state => state);
+  // const groupView = selectedGroup.find(g => g.id === groupId);
+  console.log(selectedGroup);
+  // console.log(groupView);
 
-  const [groupId, setGroupId] = useState(parseInt(props.group));
+  // console.log(selectedGroup.expenses.map(expense => expense.name));
+
   const [groupEdit, setGroupEdit] = useState(false);
   const [expenses, setExpenses] = useState([]);
 
-  const selectedGroup = groups.find(g => g.id === groupId);
+  // console.log(selectedGroup);
 
   const renderGroupDetails = () => {
-    // const { group, expenses, groupEdit } = this.state;
     return (
-      <div>
+      <>
         {handleGroupEditRender(groupEdit)}
-        {selectedGroup.expenses.map(expense => {
-          return (
-            <Segment key={expense.id}>
-              <li>
-                {expense.name} {expense.description} ${expense.amount}
-                <Icon
-                  style={{ marginLeft: "1em" }}
-                  color="red"
-                  name="minus circle"
-                  // onClick={this.deleteExpense(expense)}
-                ></Icon>
-              </li>
-            </Segment>
-          );
-        })}
-      </div>
+        {selectedGroup
+          ? selectedGroup.expenses.map(expense => {
+              return (
+                <Segment key={expense.id}>
+                  <li>
+                    {expense.name} {expense.description} ${expense.amount}
+                    <Icon
+                      style={{ marginLeft: "1em" }}
+                      color="red"
+                      name="minus circle"
+                      // onClick={this.deleteExpense(expense)}
+                    ></Icon>
+                  </li>
+                </Segment>
+              );
+            })
+          : ""}
+      </>
     );
   };
 
@@ -127,7 +138,7 @@ const GroupDetails = props => {
   return (
     <div>
       <h1>Group Details</h1>
-      {renderGroupDetails()}
+      {/* {renderGroupDetails()} */}
     </div>
   );
 };

@@ -19,12 +19,14 @@ const Dashboard = () => {
     groupName: ""
   });
   const { groupName } = newGroup;
-  const groups = useSelector(state => state.myGroups);
 
+  // const groups = useSelector(state => state.currentUser.groups);
+  const groups = useSelector(state => state.myGroups);
+  console.log(groups);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(groupActions.getGroupsFromAPI(1));
+    dispatch(groupActions.getGroupsFromAPI(2));
   }, []);
 
   const show = () => {
@@ -58,13 +60,6 @@ const Dashboard = () => {
         </Grid.Column>
       );
     });
-
-  // const handleSubmit = event => {
-  //   event.preventDefault();
-  //   // this.props.handleAddGroup(this.state.group_name);
-
-  //   this.close();
-  // };
 
   const handleSubmit = e => {
     e.preventDefault();

@@ -5,31 +5,17 @@ const setGroupsAction = groups => ({
   payload: groups
 });
 
-const setGroupDetails = groupDetails => ({
-  type: "GROUP_DETAILS",
-  payload: groupDetails
-});
-
 const addGroup = newGroup => ({
   type: "ADD_GROUP",
   payload: newGroup
 });
 
-const getGroupsFromAPI = (userId = 1) => dispatch => {
+const getGroupsFromAPI = userId => dispatch => {
   fetch(API + `users/${userId}`)
     .then(r => r.json())
     .then(data => {
       //   debugger;
       dispatch(setGroupsAction(data.groups));
-    });
-};
-
-const getGroupDetails = (groupId = 1) => dispatch => {
-  fetch(API + `groups/${groupId}`)
-    .then(r => r.json())
-    .then(data => {
-      //   debugger;
-      dispatch(setGroupDetails(data));
     });
 };
 
@@ -49,6 +35,5 @@ const addGroupToAPI = group_name => dispatch => {
 
 export default {
   getGroupsFromAPI,
-  getGroupDetails,
   addGroupToAPI
 };
