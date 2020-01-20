@@ -21,13 +21,11 @@ const GroupDetails = props => {
   const userGroups = useSelector(state => state.currentUser.user.groups);
   const selectedGroup = useSelector(state => state.groupDetails.details);
 
+  const [newGroupName, setNewGroupName] = useState("");
+
   useEffect(() => {
     dispatch(groupDetailActions.getGroupDetailsFromAPI(groupId));
   }, []);
-
-  console.log(props);
-  console.log(userGroups);
-  console.log(selectedGroup);
 
   const renderGroupDetails = () => {
     if (userGroups) {
@@ -62,56 +60,47 @@ const GroupDetails = props => {
     setExpenses(expenseToRemove);
   };
 
-  const handleGroupEditRender = arg => {
-    let groupName;
-    if (arg) {
-      groupName = (
-        <Input
-          icon={
-            <Icon
-              name="check"
-              color="green"
-              circular
-              link
-              onClick={handleGroupNameSave}
-            />
-          }
-          // value={this.state.group.name}
-          // onChange={this.handleGroupNameChange}
-        />
-      );
-    } else {
-      groupName = (
-        <Container>
-          <Header as="h2" style={{ display: "inline-block" }}>
-            {/* {selectedGroup.name} */}
-          </Header>
-          <Icon
-            style={{ marginLeft: "1em" }}
-            size="small"
-            name="pencil"
-            color="blue"
-            onClick={handleGroupEdit}
-          ></Icon>
-          <Button size="small" positive onClick={addExpense}>
-            New Expense
-          </Button>
-        </Container>
-      );
-    }
+  const handleGroupNameSave = event => {
+    const target = event.target;
+    const value = target.value;
 
-    return groupName;
+    dispatch(groupDetailActions.editGroupName(groupId, value));
+    setGroupEdit(false);
   };
 
-  const handleGroupNameSave = event => {
-    console.log(event.target.name);
-    setGroupEdit(false);
-    // AccountsAdapter.updateGroup(this.state.group).then(data =>
-    //   this.setState({
-    //     group: data,
-    //     groupEdit: false
-    //   })
-    // );
+  const handleGroupEditRender = groupEdit => {
+    return groupEdit ? (
+      <Input
+        icon={
+          <Icon
+            name="check"
+            color="green"
+            circular
+            link
+            onClick={handleGroupNameSave}
+          />
+        }
+        name="newGroupName"
+        value={newGroupName}
+        onChange={handleInputChange}
+      />
+    ) : (
+      <Container>
+        <Header as="h2" style={{ display: "inline-block" }}>
+          {selectedGroup.name}
+        </Header>
+        <Icon
+          style={{ marginLeft: "1em" }}
+          size="small"
+          name="pencil"
+          color="blue"
+          onClick={handleGroupEdit}
+        ></Icon>
+        <Button size="small" positive onClick={addExpense}>
+          New Expense
+        </Button>
+      </Container>
+    );
   };
 
   const handleGroupEdit = () => {
@@ -120,12 +109,31 @@ const GroupDetails = props => {
     });
   };
 
+  const handleInputChange = event => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    console.log(value);
+    setNewGroupName({
+      [name]: value
+    });
+  };
+
   const addExpense = () => {
     console.log("hello expense");
-    const group_id = groupId;
-    const name = "Test";
-    const description = "This is a test";
-    const amount = "100.99";
+    const group = {
+      group_id: groupId,
+      user_id: localStorage.userId,
+      name: "Hello",
+      description: "Description",
+      amount: 100.0
+    };
+    // const group_id = groupId;
+    // const name = "Test";
+    // const description = "This is a test";
+    // const amount = "100.99";
+    dispatch(groupDetailActions.addExpenseToAPI(group));
+    // dispatch(userActions.addGroupToAPI(localStorage.userId, groupName));
     // setExpenses(prevState => [
     //   ...prevState,
     //   { group_id, name: name, description: description, amount: amount }

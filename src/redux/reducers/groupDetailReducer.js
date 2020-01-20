@@ -7,19 +7,17 @@ export default (state = initialState, { type, payload }) => {
     case "SET_GROUP_DETAILS":
       return { ...state, details: payload };
     case "CHANGE_GROUP_NAME":
-      return { ...state, name: payload.name };
+      return {
+        ...state,
+        details: { ...state.details, payload }
+      };
     case "ADD_EXPENSE":
       return {
         ...state,
-        expenses: [
-          ...state.expenses,
-          {
-            group_id: state.groupId,
-            name: "Test",
-            description: "Test desc",
-            amount: "100.99"
-          }
-        ]
+        details: {
+          ...state.details,
+          expenses: [...state.details.expenses, payload]
+        }
       };
     default:
       return state;
