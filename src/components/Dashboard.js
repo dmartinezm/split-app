@@ -80,7 +80,8 @@ const Dashboard = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(groupActions.addGroupToAPI(localStorage.userId, groupName));
+    // dispatch(groupActions.addGroupToAPI(localStorage.userId, groupName));
+    dispatch(userActions.addGroupToAPI(localStorage.userId, groupName));
     setGroupName({ groupName: "" });
     close();
   };

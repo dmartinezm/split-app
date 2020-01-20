@@ -14,16 +14,16 @@ import {
 const GroupDetails = props => {
   const dispatch = useDispatch();
   const [groupEdit, setGroupEdit] = useState(false);
-  const [expenses, setExpenses] = useState({});
+  const [expenses, setExpenses] = useState([]);
 
   const groupId = props.group;
 
-  const [groups, setGroups] = useState({});
   const userGroups = useSelector(state => state.currentUser.user.groups);
   const selectedGroup = useSelector(state => state.groupDetails.details);
 
   useEffect(() => {
     dispatch(groupDetailActions.getGroupDetailsFromAPI(groupId));
+    // setExpenses(selectedGroup.expenses);
   }, []);
 
   console.log(props);
@@ -43,7 +43,9 @@ const GroupDetails = props => {
                   style={{ marginLeft: "1em" }}
                   color="red"
                   name="minus circle"
-                  // onClick={this.deleteExpense(expense)}
+                  onClick={() => {
+                    deleteExpense(expense);
+                  }}
                 ></Icon>
               </li>
             </Segment>
@@ -51,6 +53,14 @@ const GroupDetails = props => {
         </>
       );
     }
+  };
+
+  const deleteExpense = expense => {
+    const expenseToRemove = selectedGroup.expenses.filter(e => e !== expense);
+    // this.setState({
+    //   expenses: expenseToRemove
+    // });
+    setExpenses(expenseToRemove);
   };
 
   const handleGroupEditRender = arg => {

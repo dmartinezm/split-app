@@ -11,6 +11,7 @@ const USERS_URL = BASE_URL + "/users";
 const PERSIST_URL = BASE_URL + "/persist";
 const LOGIN_URL = BASE_URL + "/login";
 const SPECIFIC_USER_URL = id => USERS_URL + "/" + id;
+const API = "http://localhost:3000/";
 
 const setUserAction = user => ({
   type: "SET_USER",
@@ -106,19 +107,31 @@ const logoutUser = () => dispatch => {
   localStorage.clear();
 };
 
-// const getGroupsFromAPI = userId => dispatch => {
-//   fetch(BASE_URL + `/users/${userId}`)
-//     .then(r => r.json())
-//     .then(data => {
-//       // debugger;
-//       dispatch(setUserGroups(data.groups));
-//     });
-// };
+const addGroup = newGroup => ({
+  type: "ADD_GROUP",
+  payload: newGroup
+});
+
+const addGroupToAPI = (userid, group_name) => dispatch => {
+  fetch(API + "newgroup/", {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({ user_id: userid, name: group_name })
+  })
+    .then(r => r.json())
+    .then(data => {
+      // debugger;
+      // dispatch(addGroup(data.groups[data.groups.length - 1]));
+      dispatch(addGroup(data.groups));
+    })
+    .catch(console.error);
+};
 
 export default {
   newUserToDB,
   deleteUserFromDB,
   loginUserToDB,
   persistUser,
-  logoutUser
+  logoutUser,
+  addGroupToAPI
 };

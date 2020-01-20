@@ -20,8 +20,8 @@ const App = () => {
   const dispatch = useDispatch();
   const loggedUser = localStorage.userId;
 
-  const user = useSelector(state => state.currentUser, {}) || {};
-  const state = useSelector(state => state.currentUser, {}) || {};
+  // const user = useSelector(state => state.currentUser, {}) || {};
+  // const state = useSelector(state => state.currentUser, {}) || {};
   // console.log("APP get state before useEffect", state);
   useEffect(() => {
     if (localStorage.token) {

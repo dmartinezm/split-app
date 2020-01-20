@@ -40,6 +40,18 @@ export default (state = initialState, action) => {
       return { ...state, user: {} };
     // case "SET_USER_GROUPS":
     //   return { ...state, myGroups: [...state.myGroups, payload] };
+    case "ADD_GROUP":
+      // let newArray = state.groups.splice();
+      // newArray.splice(action.index, 0, action.item);
+      // return newArray;
+      // return { ...state, groups: action.payload };
+      // return { ...state, groups: [...state.user.groups, action.payload] };
+      // groups: [...state.groups, { name: action.payload + "jj" }]
+      return {
+        ...state,
+        groups: action.payload
+      };
+
     default:
       return state;
   }
