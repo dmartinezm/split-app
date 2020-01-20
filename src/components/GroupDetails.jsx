@@ -23,7 +23,6 @@ const GroupDetails = props => {
 
   useEffect(() => {
     dispatch(groupDetailActions.getGroupDetailsFromAPI(groupId));
-    // setExpenses(selectedGroup.expenses);
   }, []);
 
   console.log(props);

@@ -121,8 +121,9 @@ const addGroupToAPI = (userid, group_name) => dispatch => {
     .then(r => r.json())
     .then(data => {
       // debugger;
-      // dispatch(addGroup(data.groups[data.groups.length - 1]));
-      dispatch(addGroup(data.groups));
+      console.log(data) ||
+        // dispatch(addGroup(data.groups[data.groups.length - 1]));
+        dispatch(addGroup(data.user.groups[data.user.groups.length - 1]));
     })
     .catch(console.error);
 };

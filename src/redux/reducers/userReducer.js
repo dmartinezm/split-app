@@ -49,7 +49,7 @@ export default (state = initialState, action) => {
       // groups: [...state.groups, { name: action.payload + "jj" }]
       return {
         ...state,
-        groups: action.payload
+        user: { ...state.user, groups: [...state.user.groups, action.payload] }
       };
 
     default:
