@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import groupDetailActions from "../redux/actions/groupDetailActions";
-// import AccountsAdapter from "../Adapters/AccountsAdapter";
 
 import {
   Icon,
@@ -14,46 +13,44 @@ import {
 
 const GroupDetails = props => {
   const dispatch = useDispatch();
+  const [groupEdit, setGroupEdit] = useState(false);
+  const [expenses, setExpenses] = useState({});
+
   const groupId = props.group;
-  // const [groupId, setGroupId] = useState(parseInt(props.group));
+
+  const [groups, setGroups] = useState({});
+  const userGroups = useSelector(state => state.currentUser.user.groups);
+  const selectedGroup = useSelector(state => state.groupDetails.details);
+
   useEffect(() => {
     dispatch(groupDetailActions.getGroupDetailsFromAPI(groupId));
   }, []);
-  const selectedGroup = useSelector(state => state);
-  // const groupView = selectedGroup.find(g => g.id === groupId);
+
+  console.log(props);
+  console.log(userGroups);
   console.log(selectedGroup);
-  // console.log(groupView);
-
-  // console.log(selectedGroup.expenses.map(expense => expense.name));
-
-  const [groupEdit, setGroupEdit] = useState(false);
-  const [expenses, setExpenses] = useState([]);
-
-  // console.log(selectedGroup);
 
   const renderGroupDetails = () => {
-    return (
-      <>
-        {handleGroupEditRender(groupEdit)}
-        {selectedGroup
-          ? selectedGroup.expenses.map(expense => {
-              return (
-                <Segment key={expense.id}>
-                  <li>
-                    {expense.name} {expense.description} ${expense.amount}
-                    <Icon
-                      style={{ marginLeft: "1em" }}
-                      color="red"
-                      name="minus circle"
-                      // onClick={this.deleteExpense(expense)}
-                    ></Icon>
-                  </li>
-                </Segment>
-              );
-            })
-          : ""}
-      </>
-    );
+    if (userGroups) {
+      return (
+        <>
+          {handleGroupEditRender(groupEdit)}
+          {selectedGroup.expenses.map(expense => (
+            <Segment key={expense.id}>
+              <li>
+                {expense.name} {expense.description} ${expense.amount}
+                <Icon
+                  style={{ marginLeft: "1em" }}
+                  color="red"
+                  name="minus circle"
+                  // onClick={this.deleteExpense(expense)}
+                ></Icon>
+              </li>
+            </Segment>
+          ))}
+        </>
+      );
+    }
   };
 
   const handleGroupEditRender = arg => {
@@ -78,7 +75,7 @@ const GroupDetails = props => {
       groupName = (
         <Container>
           <Header as="h2" style={{ display: "inline-block" }}>
-            {selectedGroup.name}
+            {/* {selectedGroup.name} */}
           </Header>
           <Icon
             style={{ marginLeft: "1em" }}
@@ -120,10 +117,10 @@ const GroupDetails = props => {
     const name = "Test";
     const description = "This is a test";
     const amount = "100.99";
-    setExpenses(prevState => [
-      ...prevState,
-      { group_id, name: name, description: description, amount: amount }
-    ]);
+    // setExpenses(prevState => [
+    //   ...prevState,
+    //   { group_id, name: name, description: description, amount: amount }
+    // ]);
 
     // this.setState(prevState => {
     //   return {
@@ -138,7 +135,7 @@ const GroupDetails = props => {
   return (
     <div>
       <h1>Group Details</h1>
-      {/* {renderGroupDetails()} */}
+      {renderGroupDetails()}
     </div>
   );
 };

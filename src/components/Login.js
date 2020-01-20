@@ -10,6 +10,7 @@ import {
   Message,
   Segment
 } from "semantic-ui-react";
+import groupActions from "../redux/actions/groupActions";
 
 const LoginPage = props => {
   // initialize dispatch
@@ -23,11 +24,13 @@ const LoginPage = props => {
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(userActions.loginUserToDB(loginForm));
+    // dispatch(groupActions.getGroupsFromAPI(localStorage.userId || 1));
+
     props.history.push("/dashboard");
   };
 
   const handleChange = e => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
   };
 
@@ -40,7 +43,7 @@ const LoginPage = props => {
         <Header as="h2" color="teal" textAlign="center">
           <Image src="/logo.png" /> Log-in to your account
         </Header>
-        <Form size="large" onSubmit={handleSubmit}>
+        <Form size="large" onSubmit={handleSubmit} type="">
           <Segment stacked>
             <Form.Input
               fluid

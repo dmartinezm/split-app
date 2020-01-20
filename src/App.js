@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Styles/App.css";
 import Routes from "./Routes";
 // import Nav from "./components/NavBar";
@@ -18,15 +18,23 @@ const App = () => {
   // });
 
   const dispatch = useDispatch();
-  const user = useSelector(state => state.currentUser);
+  const loggedUser = localStorage.userId;
 
+  const user = useSelector(state => state.currentUser, {}) || {};
+  const state = useSelector(state => state.currentUser, {}) || {};
+  // console.log("APP get state before useEffect", state);
   useEffect(() => {
-    // dispatch(groupActions.getGroupsFromAPI());
     if (localStorage.token) {
-      dispatch(userActions.persistUserFromAPI());
-      // dispatch(groupActions.getGroupsFromAPI(user.id));
+      dispatch(userActions.persistUser());
     }
   }, []);
+
+  // console.log("APP get state after useEffect", state);
+  // const [loggedUser, setLoggedUser] = useState(1);
+
+  // const setUser = () => {
+  //   setLoggedUser(user.id);
+  // };
 
   return (
     <Router>

@@ -26,12 +26,20 @@
 
 // export default rootReducer;
 
-export default (state = {}, { type, payload }) => {
-  switch (type) {
+const initialState = {
+  user: {}
+};
+
+export default (state = initialState, action) => {
+  switch (action.type) {
     case "SET_USER":
-      return payload;
+      // debugger;
+      return { ...state, user: action.payload };
+
     case "CLEAR_USER":
-      return {};
+      return { ...state, user: {} };
+    // case "SET_USER_GROUPS":
+    //   return { ...state, myGroups: [...state.myGroups, payload] };
     default:
       return state;
   }

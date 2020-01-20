@@ -10,24 +10,34 @@ const addGroup = newGroup => ({
   payload: newGroup
 });
 
+const clearGroupAction = () => ({
+  type: "CLEAR_GROUPS"
+});
+
+const logoutUser = () => dispatch => {
+  dispatch(clearGroupAction());
+  localStorage.clear();
+};
+
 const getGroupsFromAPI = userId => dispatch => {
   fetch(API + `users/${userId}`)
     .then(r => r.json())
     .then(data => {
-      //   debugger;
+      // debugger;
       dispatch(setGroupsAction(data.groups));
     });
 };
 
-const addGroupToAPI = group_name => dispatch => {
+const addGroupToAPI = (userid, group_name) => dispatch => {
   fetch(API + "newgroup/", {
     method: "POST",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({ user_id: 1, name: group_name })
+    body: JSON.stringify({ user_id: userid, name: group_name })
   })
     .then(r => r.json())
     .then(data => {
       // debugger;
+      // dispatch(addGroup(data.groups[data.groups.length - 1]));
       dispatch(addGroup(data.groups[data.groups.length - 1]));
     })
     .catch(console.error);
@@ -35,5 +45,6 @@ const addGroupToAPI = group_name => dispatch => {
 
 export default {
   getGroupsFromAPI,
-  addGroupToAPI
+  addGroupToAPI,
+  logoutUser
 };

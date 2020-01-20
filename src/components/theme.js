@@ -3,6 +3,7 @@ import { Container, Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import userActions from "../redux/actions/userActions";
+import groupActions from "../redux/actions/groupActions";
 
 const FixedMenuLayout = props => {
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ const FixedMenuLayout = props => {
 
           <Menu.Item as={Link} to="/friends" postion="right">
             Friends
+          </Menu.Item>
+          <Menu.Item as={Link} to="/home" postion="right">
+            Home
           </Menu.Item>
         </Container>
       </Menu>

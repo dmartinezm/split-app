@@ -26,11 +26,13 @@ const Routes = () => {
             return <Component.GroupDetails group={groupId} />;
           }}
         />
+        {/* <Route path="/group-details/:id" component={Component.GroupDetails} /> */}
         <Route path="/friends" component={Component.Friends} />
         <Route exact path="/" component={Login} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/done" component={Done} />
+        <Route exact path="/home" component={Home} />
         {/* <Route exact path="/dashboard" component={Dashboard} /> */}
       </Switch>
     </div>

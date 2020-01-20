@@ -5,7 +5,7 @@ const setGroupDetailAction = gDetails => ({
   payload: gDetails
 });
 
-const getGroupDetailsFromAPI = (groupId = 1) => dispatch => {
+const getGroupDetailsFromAPI = groupId => dispatch => {
   fetch(API + `groups/${groupId}`)
     .then(r => r.json())
     .then(data => {

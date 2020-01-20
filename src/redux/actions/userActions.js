@@ -8,7 +8,7 @@
 
 const BASE_URL = "http://localhost:3000";
 const USERS_URL = BASE_URL + "/users";
-const PERSIST_URL = BASE_URL + "/auth";
+const PERSIST_URL = BASE_URL + "/persist";
 const LOGIN_URL = BASE_URL + "/login";
 const SPECIFIC_USER_URL = id => USERS_URL + "/" + id;
 
@@ -17,22 +17,28 @@ const setUserAction = user => ({
   payload: user
 });
 
+// const setUserGroups = groups => ({
+//   type: "SET_USER_GROUPS",
+//   payload: groups
+// });
+
 const clearUserAction = () => ({
   type: "CLEAR_USER"
 });
 
-const persistUserFromAPI = () => dispatch => {
-  fetch("http://localhost:3000/persist", {
-    headers: {
-      "content-type": "application/json",
-      Authorization: "bearer " + localStorage.token
-    }
-  })
-    .then(r => r.json())
-    .then(user => {
-      dispatch(setUserAction(user));
-    });
-};
+// const persistUserFromAPI = () => dispatch => {
+//   fetch("http://localhost:3000/persist", {
+//     headers: {
+//       "content-type": "application/json",
+//       Authorization: "bearer " + localStorage.token
+//     }
+//   })
+//     .then(r => r.json())
+//     .then(data => {
+//       debugger;
+//       dispatch(setUserAction(data));
+//     });
+// };
 
 const newUserToDB = userObj => dispatch => {
   const config = {
@@ -47,6 +53,7 @@ const newUserToDB = userObj => dispatch => {
     .then(data => {
       dispatch(setUserAction(data.user));
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.user.id);
     });
 };
 
@@ -71,8 +78,10 @@ const loginUserToDB = userCredentials => dispatch => {
   fetch(LOGIN_URL, config)
     .then(r => r.json())
     .then(data => {
+      // debugger;
       dispatch(setUserAction(data.user));
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.user.id);
     });
 };
 
@@ -85,8 +94,10 @@ const persistUser = () => dispatch => {
   };
   fetch(PERSIST_URL, config)
     .then(r => r.json())
-    .then(userInstance => {
-      dispatch(setUserAction(userInstance));
+    .then(data => {
+      // debugger;
+      dispatch(setUserAction(data.user));
+      // dispatch(getGroupsFromAPI(data.id));
     });
 };
 
@@ -95,11 +106,19 @@ const logoutUser = () => dispatch => {
   localStorage.clear();
 };
 
+// const getGroupsFromAPI = userId => dispatch => {
+//   fetch(BASE_URL + `/users/${userId}`)
+//     .then(r => r.json())
+//     .then(data => {
+//       // debugger;
+//       dispatch(setUserGroups(data.groups));
+//     });
+// };
+
 export default {
   newUserToDB,
   deleteUserFromDB,
   loginUserToDB,
   persistUser,
-  logoutUser,
-  persistUserFromAPI
+  logoutUser
 };
