@@ -10,7 +10,7 @@ const getGroupDetailsFromAPI = groupId => dispatch => {
     .then(r => r.json())
     .then(data => {
       // debugger;
-      console.log(data) || dispatch(setGroupDetailAction(data));
+      dispatch(setGroupDetailAction(data));
     });
 };
 
@@ -53,8 +53,23 @@ const addExpenseToAPI = expenseObj => dispatch => {
     .catch(console.error);
 };
 
+const deleteExpense = expense => ({
+  type: "DELETE_EXPENSE",
+  payload: expense
+});
+
+const deleteExpenseFromAPI = expenseId => dispatch => {
+  const config = {
+    method: "DELETE"
+  };
+  fetch(API + `expenses/${expenseId}`, config).then(r => {
+    dispatch(deleteExpense());
+  });
+};
+
 export default {
   getGroupDetailsFromAPI,
   editGroupName,
-  addExpenseToAPI
+  addExpenseToAPI,
+  deleteExpenseFromAPI
 };

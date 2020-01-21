@@ -1,20 +1,14 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Component from "./components";
-import Login from "./components/Login";
-import Signup from "./components/Auth/Signup";
-import Done from "./components/Auth/Done";
-import Dashboard from "./components/Dashboard";
-import Home from "./components/Home";
 
 const Routes = () => {
   return (
     <div className="main">
       <Switch>
-        {/* <Route exact path="/" component={Component.Home} /> */}
-        {/* <Route path="/login" component={Component.Login} /> */}
-        {/* <Route path="/signup" component={Component.Signup} /> */}
+        <Route exact path="/" component={Component.Login} />
         <Route path="/dashboard" component={Component.Dashboard} />
+        <Route path="/friends" component={Component.Friends} />
         <Route
           exact
           path="/group-details/:id"
@@ -26,14 +20,9 @@ const Routes = () => {
             return <Component.GroupDetails group={groupId} />;
           }}
         />
-        {/* <Route path="/group-details/:id" component={Component.GroupDetails} /> */}
-        <Route path="/friends" component={Component.Friends} />
-        <Route exact path="/" component={Login} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/done" component={Done} />
-        <Route exact path="/home" component={Home} />
-        {/* <Route exact path="/dashboard" component={Dashboard} /> */}
+        <Route path="/login" component={Component.Login} />
+        <Route path="/signup" component={Component.Signup} />
+        <Route path="/groups" component={Component.Groups} />
       </Switch>
     </div>
   );

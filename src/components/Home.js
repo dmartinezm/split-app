@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import userActions from "../redux/actions/userActions";
+import React from "react";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const currentUser = useSelector(state => state.currentUser);
   const userGroups = useSelector(state => state.currentUser.user.groups);
-
-  const state = useSelector(state => state);
-  console.log(state);
-  console.log(currentUser);
-
-  // const userGroups = useSelector(state => state.currentUser.groups);
 
   const text = currentUser ? (
     <h1>Welcome {currentUser.user.first_name}</h1>
@@ -20,7 +13,7 @@ const Home = () => {
 
   const renderList = () => {
     if (userGroups) {
-      return userGroups.map(group => <li>{group.name}</li>);
+      return userGroups.map(group => <li key={group.id}>{group.name}</li>);
     }
   };
   return (

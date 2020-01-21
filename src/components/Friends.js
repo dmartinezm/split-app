@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Header, Image, Table } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import friendActions from "../redux/actions/friendActions";
 
 const Friends = () => {
-  const [myFriends, setFriends] = useState();
+  // const [myFriends, setFriends] = useState();
 
   const dispatch = useDispatch();
   const friends = useSelector(state => state.myFriends);
@@ -13,7 +13,7 @@ const Friends = () => {
   console.log(sharedGroups);
   useEffect(() => {
     dispatch(friendActions.getFriendsFromAPI());
-  }, []);
+  }, [dispatch]);
 
   const friendGroupTable = userId =>
     sharedGroups.map(group =>

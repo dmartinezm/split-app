@@ -19,6 +19,15 @@ export default (state = initialState, { type, payload }) => {
           expenses: [...state.details.expenses, payload]
         }
       };
+
+    case "DELETE_EXPENSE":
+      return {
+        ...state,
+        details: {
+          ...state.details,
+          expenses: [...state.details.expenses]
+        }
+      };
     default:
       return state;
   }

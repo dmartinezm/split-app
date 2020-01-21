@@ -14,7 +14,6 @@ import {
 const GroupDetails = props => {
   const dispatch = useDispatch();
   const [groupEdit, setGroupEdit] = useState(false);
-  const [expenses, setExpenses] = useState([]);
 
   const groupId = props.group;
 
@@ -25,7 +24,7 @@ const GroupDetails = props => {
 
   useEffect(() => {
     dispatch(groupDetailActions.getGroupDetailsFromAPI(groupId));
-  }, []);
+  }, [dispatch, groupId]);
 
   const renderGroupDetails = () => {
     if (userGroups) {
@@ -34,14 +33,14 @@ const GroupDetails = props => {
           {handleGroupEditRender(groupEdit)}
           {selectedGroup.expenses.map(expense => (
             <Segment key={expense.id}>
-              <li>
+              <li key={expense.id}>
                 {expense.name} {expense.description} ${expense.amount}
                 <Icon
                   style={{ marginLeft: "1em" }}
                   color="red"
                   name="minus circle"
                   onClick={() => {
-                    deleteExpense(expense);
+                    handleDeleteExpense(expense.id);
                   }}
                 ></Icon>
               </li>
@@ -50,14 +49,6 @@ const GroupDetails = props => {
         </>
       );
     }
-  };
-
-  const deleteExpense = expense => {
-    const expenseToRemove = selectedGroup.expenses.filter(e => e !== expense);
-    // this.setState({
-    //   expenses: expenseToRemove
-    // });
-    setExpenses(expenseToRemove);
   };
 
   const handleGroupNameSave = event => {
@@ -117,6 +108,11 @@ const GroupDetails = props => {
     setNewGroupName({
       [name]: value
     });
+  };
+
+  const handleDeleteExpense = event => {
+    console.log(event);
+    dispatch(groupDetailActions.deleteExpenseFromAPI(event));
   };
 
   const addExpense = () => {
