@@ -3,10 +3,12 @@ import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import currentUser from "../reducers/userReducer";
 import selectedGroup from "../reducers/groupDetailReducer";
+import friends from "../reducers/friendReducer";
 
 const rootReducer = combineReducers({
   currentUser: currentUser,
-  groupDetails: selectedGroup
+  groupDetails: selectedGroup,
+  friends: friends
 });
 // reducers produce the state of your application.
 

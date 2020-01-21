@@ -14,9 +14,10 @@ const getFriendsFromAPI = (userId = 1) => dispatch => {
   fetch(API + `users/${userId}`)
     .then(r => r.json())
     .then(data => {
-      debugger;
+      // debugger;
+      console.log(data.friends);
       dispatch(setFriends(data.friends));
-      dispatch(setFriendGroups(data.group_with));
+      // dispatch(setFriendGroups(data.group_with));
     });
 };
 

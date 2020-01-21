@@ -7,18 +7,18 @@ const Friends = () => {
   // const [myFriends, setFriends] = useState();
 
   const dispatch = useDispatch();
-  const friends = useSelector(state => state.myFriends);
-  const sharedGroups = useSelector(state => state.friendGroups);
-
-  console.log(sharedGroups);
+  const friends = useSelector(state => state.friends);
+  // const sharedGroups = useSelector(state => state.friendGroups);
+  console.log(friends);
+  // console.log(sharedGroups);
   useEffect(() => {
     dispatch(friendActions.getFriendsFromAPI());
   }, [dispatch]);
 
-  const friendGroupTable = userId =>
-    sharedGroups.map(group =>
-      group.user_id === userId ? <li>{group.name}</li> : ""
-    );
+  // const friendGroupTable = userId =>
+  //   sharedGroups.map(group =>
+  //     group.user_id === userId ? <li>{group.name}</li> : ""
+  //   );
 
   const friendTable = () => {
     return (
@@ -43,14 +43,14 @@ const Friends = () => {
                 </Header>
               </Table.Cell>
               <Table.Cell>{friend.email}</Table.Cell>
-              <Table.Cell>{friendGroupTable(friend.id)}</Table.Cell>
+              {/* <Table.Cell>{friendGroupTable(friend.id)}</Table.Cell> */}
             </Table.Row>
           ))}
         </Table.Body>
       </Table>
     );
   };
-
+  // return <h1>friends</h1>;
   return <div>{friendTable()}</div>;
 };
 
