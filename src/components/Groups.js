@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import userActions from "../redux/actions/userActions";
 import { Link } from "react-router-dom";
+import { Table } from "semantic-ui-react";
 
 import {
   Button,
@@ -9,6 +10,8 @@ import {
   Grid,
   Header,
   Segment,
+  Menu,
+  Icon,
   Modal,
   Form
 } from "semantic-ui-react";
@@ -45,18 +48,65 @@ const Groups = () => {
 
   const renderGroups = () => {
     if (userGroups) {
-      return userGroups.map(group => (
-        <Grid.Column key={group.id} onClick={handleGroupClick}>
-          <Link
-            to={{
-              pathname: `/group-details/${group.id}`,
-              group: { name: "soemthing" }
-            }}
-          >
-            <Segment>{group.name}</Segment>
-          </Link>
-        </Grid.Column>
-      ));
+      return (
+        <Table celled selectable>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Group</Table.HeaderCell>
+              <Table.HeaderCell>Total Amount</Table.HeaderCell>
+              <Table.HeaderCell>Notes</Table.HeaderCell>
+              <Table.HeaderCell></Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {userGroups.map(group => (
+              <Table.Row key={group.id}>
+                <Table.Cell>{group.name}</Table.Cell>
+                <Table.Cell>{group.total}</Table.Cell>
+                <Table.Cell>{group.name}</Table.Cell>
+                <Table.Cell>
+                  <Link to={{ pathname: `/group-details/${group.id}` }}>
+                    <Button basic color="blue">
+                      Details
+                    </Button>
+                  </Link>
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+          <Table.Footer>
+            <Table.Row>
+              <Table.HeaderCell colSpan="3">
+                <Menu floated="right" pagination>
+                  <Menu.Item as="a" icon>
+                    <Icon name="chevron left" />
+                  </Menu.Item>
+                  <Menu.Item as="a">1</Menu.Item>
+                  <Menu.Item as="a">2</Menu.Item>
+                  <Menu.Item as="a">3</Menu.Item>
+                  <Menu.Item as="a">4</Menu.Item>
+                  <Menu.Item as="a" icon>
+                    <Icon name="chevron right" />
+                  </Menu.Item>
+                </Menu>
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Footer>
+        </Table>
+      );
+
+      // return userGroups.map(group => (
+      //   <Grid.Column key={group.id} onClick={handleGroupClick}>
+      //     <Link
+      //       to={{
+      //         pathname: `/group-details/${group.id}`,
+      //         group: { name: "soemthing" }
+      //       }}
+      //     >
+      //       <Segment>{group.name}</Segment>
+      //     </Link>
+      //   </Grid.Column>
+      // ));
     }
   };
 
@@ -101,9 +151,9 @@ const Groups = () => {
         ></Button>
       </Container>
 
-      <Grid columns={3} container>
-        {renderGroups()}
-      </Grid>
+      {/* <Grid columns={3} container> */}
+      {renderGroups()}
+      {/* </Grid> */}
 
       <Modal open={modalState} onClose={close} size="mini" closeIcon>
         <Modal.Header>Add New Group</Modal.Header>

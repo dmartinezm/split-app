@@ -43,12 +43,25 @@ const GroupDetails = props => {
                     handleDeleteExpense(expense.id);
                   }}
                 ></Icon>
+                <Icon
+                  style={{ marginLeft: "1em" }}
+                  size="small"
+                  name="pencil"
+                  color="blue"
+                  onClick={() => {
+                    handleExpenseEdit(expense.id);
+                  }}
+                ></Icon>
               </li>
             </Segment>
           ))}
         </>
       );
     }
+  };
+
+  const handleExpenseEdit = event => {
+    console.log(event);
   };
 
   const handleGroupNameSave = event => {
@@ -116,7 +129,6 @@ const GroupDetails = props => {
   };
 
   const addExpense = () => {
-    console.log("hello expense");
     const group = {
       group_id: groupId,
       user_id: localStorage.userId,
@@ -124,25 +136,7 @@ const GroupDetails = props => {
       description: "Description",
       amount: 100.0
     };
-    // const group_id = groupId;
-    // const name = "Test";
-    // const description = "This is a test";
-    // const amount = "100.99";
     dispatch(groupDetailActions.addExpenseToAPI(group));
-    // dispatch(userActions.addGroupToAPI(localStorage.userId, groupName));
-    // setExpenses(prevState => [
-    //   ...prevState,
-    //   { group_id, name: name, description: description, amount: amount }
-    // ]);
-
-    // this.setState(prevState => {
-    //   return {
-    //     expenses: [
-    //       ...prevState.expenses,
-    //       { group_id, name: name, description: description, amount: amount }
-    //     ]
-    //   };
-    // });
   };
 
   return (
