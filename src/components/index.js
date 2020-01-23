@@ -5,6 +5,7 @@ import Signup from "./Signup";
 import GroupDetails from "./GroupDetails.js";
 import Friends from "./Friends";
 import Groups from "./Groups";
+import Link from "./Link";
 
 export default {
   Login,
@@ -13,5 +14,6 @@ export default {
   Signup,
   Groups,
   GroupDetails,
-  Friends
+  Friends,
+  Link
 };

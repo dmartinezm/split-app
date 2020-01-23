@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import userActions from "../redux/actions/userActions";
 import { Link } from "react-router-dom";
-import { Table } from "semantic-ui-react";
 
 import {
   Button,
@@ -13,7 +12,8 @@ import {
   Menu,
   Icon,
   Modal,
-  Form
+  Form,
+  Table
 } from "semantic-ui-react";
 
 const Groups = () => {
@@ -33,16 +33,11 @@ const Groups = () => {
   };
 
   const close = () => {
-    setModalState(false);
     setGroupName({ groupName: "" });
-  };
-
-  const handleGroupClick = () => {
-    console.log("hi");
+    setModalState(false);
   };
 
   const handleForm = event => {
-    // console.log(event.target.value);
     setGroupName({ ...newGroup, [event.target.name]: event.target.value });
   };
 
@@ -74,47 +69,14 @@ const Groups = () => {
               </Table.Row>
             ))}
           </Table.Body>
-          <Table.Footer>
-            <Table.Row>
-              <Table.HeaderCell colSpan="3">
-                <Menu floated="right" pagination>
-                  <Menu.Item as="a" icon>
-                    <Icon name="chevron left" />
-                  </Menu.Item>
-                  <Menu.Item as="a">1</Menu.Item>
-                  <Menu.Item as="a">2</Menu.Item>
-                  <Menu.Item as="a">3</Menu.Item>
-                  <Menu.Item as="a">4</Menu.Item>
-                  <Menu.Item as="a" icon>
-                    <Icon name="chevron right" />
-                  </Menu.Item>
-                </Menu>
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Footer>
         </Table>
       );
-
-      // return userGroups.map(group => (
-      //   <Grid.Column key={group.id} onClick={handleGroupClick}>
-      //     <Link
-      //       to={{
-      //         pathname: `/group-details/${group.id}`,
-      //         group: { name: "soemthing" }
-      //       }}
-      //     >
-      //       <Segment>{group.name}</Segment>
-      //     </Link>
-      //   </Grid.Column>
-      // ));
     }
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    // dispatch(groupActions.addGroupToAPI(localStorage.userId, groupName));
     dispatch(userActions.addGroupToAPI(localStorage.userId, groupName));
-    setGroupName({ groupName: "" });
     close();
   };
 
@@ -122,7 +84,6 @@ const Groups = () => {
     return (
       <Form onSubmit={handleSubmit}>
         <Form.Field>
-          <label>Group Name</label>
           <input
             placeholder="Group Name"
             name="groupName"
@@ -130,7 +91,13 @@ const Groups = () => {
             onChange={handleForm}
           />
         </Form.Field>
-        <Button type="submit">Submit</Button>
+        <Button.Group>
+          <Button onClick={close}>Cancel</Button>
+          <Button.Or />
+          <Button positive type="Submit">
+            Save
+          </Button>
+        </Button.Group>
       </Form>
     );
   };
@@ -148,12 +115,12 @@ const Groups = () => {
           circular
           positive
           onClick={show}
-        ></Button>
+        >
+          New Group
+        </Button>
       </Container>
 
-      {/* <Grid columns={3} container> */}
       {renderGroups()}
-      {/* </Grid> */}
 
       <Modal open={modalState} onClose={close} size="mini" closeIcon>
         <Modal.Header>Add New Group</Modal.Header>

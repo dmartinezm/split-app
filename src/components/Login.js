@@ -23,8 +23,7 @@ const LoginPage = props => {
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(userActions.loginUserToDB(loginForm));
-    // dispatch(groupActions.getGroupsFromAPI(localStorage.userId || 1));
-
+    // dispatch(groupActions.getGroupsFromAPI(localStorage.userId || 1))
     props.history.push("/dashboard");
   };
 
@@ -40,7 +39,7 @@ const LoginPage = props => {
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2" color="teal" textAlign="center">
-          <Image src="/logo.png" /> Log-in to your account
+          Log-in to your account
         </Header>
         <Form size="large" onSubmit={handleSubmit} type="">
           <Segment stacked>

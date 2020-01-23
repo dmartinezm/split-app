@@ -11,8 +11,11 @@ export default (state = initialState, action) => {
       // newArray.splice(action.index, 0, action.item);
       // return newArray;
       // return { ...state, groups: action.payload };
-      // return { ...state, groups: [...state.user.groups, action.payload] };
-      return { ...state, groups: [action.payload] };
+      return {
+        ...state,
+        groups: [...state.currentUser.user.groups, action.payload]
+      };
+    // return { ...state, groups: [action.payload] };
 
     default:
       return state;

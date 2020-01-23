@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import groupDetailActions from "../redux/actions/groupDetailActions";
+import "../Styles/App.css";
 
 import {
   Icon,
   Segment,
+  Label,
   Input,
   Container,
   Header,
-  Button
+  Button,
+  Table
 } from "semantic-ui-react";
 
 const GroupDetails = props => {
@@ -20,55 +23,98 @@ const GroupDetails = props => {
   const userGroups = useSelector(state => state.currentUser.user.groups);
   const selectedGroup = useSelector(state => state.groupDetails.details);
 
+  const groupName = selectedGroup.name;
+
   const [newGroupName, setNewGroupName] = useState("");
 
   useEffect(() => {
     dispatch(groupDetailActions.getGroupDetailsFromAPI(groupId));
-  }, [dispatch, groupId]);
+  }, [userGroups, groupId, newGroupName]);
 
   const renderGroupDetails = () => {
-    if (userGroups) {
-      return (
-        <>
-          {handleGroupEditRender(groupEdit)}
-          {selectedGroup.expenses.map(expense => (
-            <Segment key={expense.id}>
-              <li key={expense.id}>
-                {expense.name} {expense.description} ${expense.amount}
-                <Icon
-                  style={{ marginLeft: "1em" }}
-                  color="red"
-                  name="minus circle"
-                  onClick={() => {
-                    handleDeleteExpense(expense.id);
-                  }}
-                ></Icon>
-                <Icon
-                  style={{ marginLeft: "1em" }}
-                  size="small"
-                  name="pencil"
-                  color="blue"
-                  onClick={() => {
-                    handleExpenseEdit(expense.id);
-                  }}
-                ></Icon>
-              </li>
-            </Segment>
-          ))}
-        </>
-      );
-    }
+    return (
+      <>
+        {handleGroupEditRender(groupEdit)}
+        <Table celled selectable>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Expense</Table.HeaderCell>
+              <Table.HeaderCell>Description</Table.HeaderCell>
+              <Table.HeaderCell>Amount</Table.HeaderCell>
+              <Table.HeaderCell></Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {selectedGroup.expenses
+              ? selectedGroup.expenses.map(expense => (
+                  <Table.Row key={expense.id}>
+                    <Table.Cell>
+                      <Input name="name" type="text" value={expense.name} />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Input
+                        name="description"
+                        type="text"
+                        value={expense.description}
+                      />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Input
+                        name="amount"
+                        type="number"
+                        labelPosition="right"
+                        placeholder="Amount"
+                      >
+                        <Label basic>$</Label>
+                        <Input value={expense.amount} />
+                      </Input>
+                    </Table.Cell>
+                    <Table.Cell
+                      textAlign="right"
+                      className="four-hundred-width"
+                    >
+                      <Icon
+                        style={{ marginLeft: "1em" }}
+                        color="red"
+                        name="trash alternate"
+                        size="large"
+                        onClick={() =>
+                          handleDeleteExpense(
+                            selectedGroup.expenses,
+                            expense.id
+                          )
+                        }
+                      ></Icon>
+                      <Icon
+                        style={{ marginLeft: "1em" }}
+                        size="large"
+                        name="check"
+                        color="green"
+                        onClick={() => {
+                          handleExpenseEdit(expense.id);
+                        }}
+                      ></Icon>
+                    </Table.Cell>
+                  </Table.Row>
+                ))
+              : ""}
+          </Table.Body>
+        </Table>
+      </>
+    );
   };
 
   const handleExpenseEdit = event => {
     console.log(event);
   };
 
-  const handleGroupNameSave = event => {
-    const target = event.target;
-    const value = target.value;
-
-    dispatch(groupDetailActions.editGroupName(groupId, value));
+  const handleGroupNameSave = e => {
+    console.log(newGroupName);
+    if (newGroupName !== "" && newGroupName !== " ") {
+      dispatch(groupDetailActions.editGroupName(groupId, newGroupName));
+      setNewGroupName("");
+      setGroupEdit(false);
+    }
     setGroupEdit(false);
   };
 
@@ -86,7 +132,8 @@ const GroupDetails = props => {
         }
         name="newGroupName"
         value={newGroupName}
-        onChange={handleInputChange}
+        placeholder={groupName}
+        onChange={e => setNewGroupName(e.target.value)}
       />
     ) : (
       <Container>
@@ -95,37 +142,29 @@ const GroupDetails = props => {
         </Header>
         <Icon
           style={{ marginLeft: "1em" }}
-          size="small"
-          name="pencil"
+          size="large"
+          name="edit outline"
           color="blue"
-          onClick={handleGroupEdit}
+          onClick={() => setGroupEdit(true)}
         ></Icon>
-        <Button size="small" positive onClick={addExpense}>
+        <Button
+          style={{ marginLeft: "1em" }}
+          icon="plus"
+          size="mini"
+          circular
+          positive
+          onClick={addExpense}
+        >
           New Expense
         </Button>
       </Container>
     );
   };
 
-  const handleGroupEdit = () => {
-    setGroupEdit(prevState => {
-      return { groupEdit: !prevState };
-    });
-  };
+  const handleDeleteExpense = (array, id) => {
+    console.log(id);
 
-  const handleInputChange = event => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    console.log(value);
-    setNewGroupName({
-      [name]: value
-    });
-  };
-
-  const handleDeleteExpense = event => {
-    console.log(event);
-    dispatch(groupDetailActions.deleteExpenseFromAPI(event));
+    dispatch(groupDetailActions.deleteExpenseFromAPI(array, id));
   };
 
   const addExpense = () => {
@@ -134,16 +173,17 @@ const GroupDetails = props => {
       user_id: localStorage.userId,
       name: "Hello",
       description: "Description",
-      amount: 100.0
+      amount: 100.99
     };
     dispatch(groupDetailActions.addExpenseToAPI(group));
   };
 
   return (
-    <div>
+    <>
       <h1>Group Details</h1>
+      <hr></hr>
       {renderGroupDetails()}
-    </div>
+    </>
   );
 };
 

@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import userActions from "./redux/actions/userActions";
 import Theme from "./components/theme";
+import groupDetailActions from "./redux/actions/groupDetailActions";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const App = () => {
   useEffect(() => {
     if (localStorage.token) {
       dispatch(userActions.persistUser());
+      dispatch(groupDetailActions.setIntialGroupDetails());
     }
   }, [dispatch]);
 

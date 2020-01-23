@@ -3,13 +3,14 @@ const initialState = {
 };
 
 export default (state = initialState, { type, payload }) => {
+  console.log(type);
   switch (type) {
     case "SET_GROUP_DETAILS":
       return { ...state, details: payload };
     case "CHANGE_GROUP_NAME":
       return {
         ...state,
-        details: { ...state.details, payload }
+        details: { ...state.details, name: payload }
       };
     case "ADD_EXPENSE":
       return {
@@ -25,9 +26,11 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         details: {
           ...state.details,
-          expenses: [...state.details.expenses]
+          expenses: payload
         }
       };
+    case "SET_INIT_GROUP_DETAILS":
+      return { ...state, details: { ...state.details, expenses: [] } };
     default:
       return state;
   }

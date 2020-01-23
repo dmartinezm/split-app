@@ -27,17 +27,18 @@
 // export default rootReducer;
 
 const initialState = {
-  user: {}
+  user: {},
+  isLoggedIn: !!localStorage.token
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case "SET_USER":
       // debugger;
-      return { ...state, user: action.payload };
+      return { ...state, user: action.payload, isLoggedIn: true };
 
     case "CLEAR_USER":
-      return { ...state, user: {} };
+      return { ...state, user: {}, isLoggedIn: false };
     // case "SET_USER_GROUPS":
     //   return { ...state, myGroups: [...state.myGroups, payload] };
     case "ADD_GROUP":

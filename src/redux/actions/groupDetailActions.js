@@ -28,9 +28,9 @@ const editGroupName = (groupId, group_name) => dispatch => {
     .then(r => r.json())
     .then(data => {
       // debugger;
-      console.log(data) ||
-        // dispatch(addGroup(data.groups[data.groups.length - 1]));
-        dispatch(changeGroupName(data.name));
+      // console.log(data) ||
+      // dispatch(addGroup(data.groups[data.groups.length - 1]));
+      dispatch(changeGroupName(data.name));
     })
     .catch(console.error);
 };
@@ -58,18 +58,29 @@ const deleteExpense = expense => ({
   payload: expense
 });
 
-const deleteExpenseFromAPI = expenseId => dispatch => {
+const deleteExpenseFromAPI = (expenseArray, expenseId) => dispatch => {
   const config = {
     method: "DELETE"
   };
   fetch(API + `expenses/${expenseId}`, config).then(r => {
-    dispatch(deleteExpense());
+    // debugger;
+    const newExpenseArray = expenseArray.filter(e => e.id !== expenseId);
+    dispatch(deleteExpense(newExpenseArray));
   });
+};
+
+const setInitialNoPayload = () => ({
+  type: "SET_INIT_GROUP_DETAILS"
+});
+
+const setIntialGroupDetails = () => dispatch => {
+  dispatch(setInitialNoPayload());
 };
 
 export default {
   getGroupDetailsFromAPI,
   editGroupName,
   addExpenseToAPI,
-  deleteExpenseFromAPI
+  deleteExpenseFromAPI,
+  setIntialGroupDetails
 };

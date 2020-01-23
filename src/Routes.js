@@ -23,6 +23,7 @@ const Routes = () => {
         <Route path="/login" component={Component.Login} />
         <Route path="/signup" component={Component.Signup} />
         <Route path="/groups" component={Component.Groups} />
+        <Route path="/link" component={Component.Link} />
       </Switch>
     </div>
   );
